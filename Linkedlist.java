@@ -218,6 +218,49 @@ public class Linkedlist {
     return true;
   }
 
+  public static boolean isCycle() {
+    Node slow = head;
+    Node fast = head;
+
+    while (fast != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+      if (fast == slow) {
+        return true;
+
+      }
+    }
+    return false;
+
+  }
+
+  public static void removeCycle() {
+    Node fast = head;
+    Node slow = head;
+    boolean cycle = false;
+
+    while (fast != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+      if (slow == fast) {
+        cycle = true;
+        break;
+      }
+      if (cycle == false) {
+        return;
+      }
+      Node prev = null;
+      while (slow != fast) {
+        prev = fast;
+        slow = slow.next;
+        fast = fast.next;
+
+      }
+      prev.next = null;
+
+    }
+  }
+
   public static void main(String[] args) {
     Linkedlist ll = new Linkedlist();
     // ll.firstAdd(2);
@@ -235,16 +278,26 @@ public class Linkedlist {
 
     // System.out.print(ll.recSearch(2));
     // System.out.print(ll.recSearch(100));
-    ll.firstAdd(1);
-    ll.firstAdd(2);
-    ll.firstAdd(2);
-    ll.firstAdd(1);
+    // ll.firstAdd(1);
+    // ll.firstAdd(2);
+    // ll.firstAdd(2);
+    // ll.firstAdd(1);
+    // ll.print();
+    // ll.reverLL();
+    // ll.print();
+    // ll.removeNthNodeToEnde(3);
+    // ll.print();
+    // System.out.println(ll.checkPelindrom());
+
+    head = new Node(1);
+    head.next = new Node(2);
+    Node temp = new Node(3);
+    temp.next = head.next;
+
+    System.out.println(isCycle());
+    removeCycle();
+    System.out.print(isCycle());
     ll.print();
-    ll.reverLL();
-    ll.print();
-    ll.removeNthNodeToEnde(3);
-    ll.print();
-    System.out.println(ll.checkPelindrom());
 
   }
 }
